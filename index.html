@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trump Table — Team Card Game</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+<header><div class="brand">♠ TRUMP TABLE</div><div id="account" class="muted">Sign in to play</div></header>
+<main>
+<section id="auth" class="panel auth">
+ <div><h1>Play together.<br><span>Win as a team.</span></h1><p>Four seats. Two teams. Thirteen tricks.</p></div>
+ <div class="authbox"><div class="tabs"><button class="tab active" data-mode="login">Login</button><button class="tab" data-mode="register">Create account</button></div>
+ <input id="username" placeholder="Username" maxlength="18"><input id="password" placeholder="Password" type="password">
+ <button class="primary" id="authBtn">Login</button><p id="authMsg" class="msg"></p></div>
+</section>
+<section id="lobby" class="hidden">
+ <div class="topline"><div><p class="eyebrow">YOUR TABLE</p><h1>Ready to deal?</h1></div><div class="balance">Wallet <b id="wallet">—</b> credits</div></div>
+ <div class="panel room-controls"><div><h2>Create a room</h2><p class="muted">You become the host and choose the minimum wager.</p></div><div class="inline"><input id="baseStake" type="number" min="10" value="50"><button class="primary" id="createBtn">Create room</button></div></div>
+ <div class="panel room-controls"><div><h2>Join a room</h2><p class="muted">Enter the five-character code from your host.</p></div><div class="inline"><input id="roomCode" placeholder="ROOM CODE" maxlength="5"><button class="secondary" id="joinBtn">Join room</button></div></div>
+</section>
+<section id="table" class="hidden">
+ <div class="table-head"><div><p class="eyebrow">ROOM <span id="code"></span></p><h1 id="phaseTitle">Waiting room</h1></div><button class="secondary" id="copyBtn">Copy invite code</button></div>
+ <div class="felt">
+  <div class="seats">
+   <div class="seat" id="seat1"> <span class="seatno">PLAYER 1 · TEAM A</span><b>Waiting…</b></div>
+   <div class="seat" id="seat2"> <span class="seatno">PLAYER 2 · TEAM B</span><b>Waiting…</b></div>
+   <div class="center-table"><div class="trump" id="trump">TRUMP<br><b>—</b></div><div class="trick" id="trick"></div><div class="score" id="score">TEAM A 0 — 0 TEAM B</div></div>
+   <div class="seat" id="seat4"><span class="seatno">PLAYER 4 · TEAM B</span><b>Waiting…</b></div>
+   <div class="seat" id="seat3"><span class="seatno">PLAYER 3 · TEAM A</span><b>Waiting…</b></div>
+  </div>
+ </div>
+ <div class="panel action-panel">
+  <p id="status" class="status">Waiting for players…</p>
+  <div id="hostActions" class="hidden"><button class="primary" id="startBtn">Deal first five cards</button></div>
+  <div id="trumpActions" class="hidden"><p>Choose the trump suit:</p><div class="suits"><button data-suit="Clubs">♣ Clubs</button><button data-suit="Spades">♠ Spades</button><button data-suit="Diamonds">♦ Diamonds</button><button data-suit="Hearts">♥ Hearts</button></div></div>
+  <div id="bidActions" class="hidden"><p>Your team wager (both teams must wager before play).</p><div class="inline"><input id="bidAmount" type="number" min="10" value="50"><button class="primary" id="bidBtn">Lock team wager</button></div></div>
+  <div id="resultActions" class="hidden"><button class="primary" id="againBtn">Play next game</button></div>
+  <div class="hand-area"><p class="eyebrow">YOUR HAND <span id="handCount"></span></p><div id="hand" class="hand"></div></div>
+ </div>
+</section>
+<div id="toast" class="toast"></div>
+</main>
+<footer>Trump Table · Private rooms · Virtual credits only</footer>
+<script src="/static/game.js"></script>
+</body></html>
